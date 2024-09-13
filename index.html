@@ -1,98 +1,148 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
-  <meta charset="UTF-8" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Animated Octagon Menu | Online Fixers</title>
-
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- Font Awesome CDN Link -->
-
-  <link rel="stylesheet" 
-  href="https://cdnjs.cloudflare.com/ajax/libs
-  /font-awesome/6.5.2/css/all.min.css"
-
-  integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w
-  +fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circular Social Media Menu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+<div id="movable" class="chat-bubble">
+<div class="circle-menu" id="ul">
+    <ul >
+        <li class="noanimaton li1 animationreverse " id="li"><a href="#"><i class="fab fa-twitter"></i></a></li>
+        <li class="noanimaton li2 animationreverse"><a href="#"><i class="fab fa-instagram"></i></a></li>
+        <li class="noanimaton li3 animationreverse"><a href="#"><i class="fab fa-tiktok"></i></a></li>
+        <li class="noanimaton li4 animationreverse"><a href="#"><i class="fab fa-wordpress"></i></a></li>
+        <li class="noanimaton li5 animationreverse"><a href="#"><i class="fab fa-docker"></i></a></li> <!-- The center X -->
+        <li class="noanimaton li6 animationreverse x" id="x"><a href="#"><i class="fas fa-times" ></i></a></li><!-- The center X -->
+        <li class="noanimaton li7 animationreverse"><a href="#"><i class="fab fa-youtube"></i></a></li>
+        <li class="noanimaton li8 animationreverse"><a href="#"><i class="fab fa-facebook"></i></a></li>
+        <li class="noanimaton li9 animationreverse"><a href="#"><i class="fab fa-github"></i></a></li>
+   
+    </ul>
+</div>
+</div>
 
-  <ul class="menu">
+<script>
+ 
+function addanimation() {
+  const UL = document.getElementById('ul')
+  const allli = document.querySelectorAll('li');
+  allli.forEach(task => {
+if(task.classList.contains('animationreverse')){
 
-    <div class="menuToggle"><i class="fa-solid fa-plus"></i></div>
+  task.classList.remove('animationreverse')
+  UL.classList.remove('UL')
+}
+else{
+   x.classList.remove('x')     
+  task.classList.remove('noanimaton');
+  task.classList.toggle('animationreverse');
+  UL.classList.toggle('UL')
 
-    <li style="--i: 0; --clr: #ff2972;">
 
-      <a href="#"><i class="fa-solid fa-house"></i></a>
+}
 
-    </li>
 
-    <li style="--i: 1; --clr: #fee800;">
+  });
+}
+function reverse() {
+  const UL = document.getElementById('ul')
+  const allli = document.querySelectorAll('li');
+  allli.forEach(task => {
 
-      <a href="#"><i class="fa-solid fa-gear"></i></a>
+    UL.classList.remove('UL')
+        task.classList.remove('noanimaton');
+        task.classList.remove('animationreverse')
+   
 
-    </li>
 
-    <li style="--i: 2; --clr: #04fc43;">
 
-      <a href="#"><i class="fa-solid fa-user"></i></a>
+  });
+}
+const li = document.getElementById('li');
+const x = document.getElementById('x');
+x.addEventListener('click',function(){
 
-    </li>
 
-    <li style="--i: 3; --clr: #fe00f1;">
+if(li.classList.contains('noanimaton')){
+  li.classList.remove('noanimaton');
+  x.classList.remove('x')     
+     reverse() ;
+}
 
-      <a href="#"><i class="fa-regular fa-envelope"></i></a>
 
-    </li>
+else{
+  
+    addanimation(); 
 
-    <li style="--i: 4; --clr: #00b0fe;">
+}
 
-      <a href="#"><i class="fa-solid fa-key"></i></a>
+})
 
-    </li>
+const bubble = document.getElementById('movable');
 
-    <li style="--i: 5; --clr: #fea600;">
+let offsetX, offsetY, isDragging = false;
 
-      <a href="#"><i class="fa-solid fa-video"></i></a>
+// Touch events
+bubble.addEventListener('touchstart', (e) => {
+  const touch = e.touches[0];
+  const rect = bubble.getBoundingClientRect();
+  
+  offsetX = touch.clientX - rect.left;
+  offsetY = touch.clientY - rect.top;
+  isDragging = true;
+});
 
-    </li>
+bubble.addEventListener('touchmove', (e) => {
+  if (!isDragging) return;
+  
+  e.preventDefault(); // Prevent scrolling
 
-    <li style="--i: 6; --clr: #a529ff;">
+  const touch = e.touches[0];
+  
+  const x = touch.clientX - offsetX;
+  const y = touch.clientY - offsetY;
+  
+  bubble.style.left = `${x}px`;
+  bubble.style.top = `${y}px`;
+});
 
-      <a href="#"><i class="fa-solid fa-gamepad"></i></a>
+bubble.addEventListener('touchend', () => {
+  isDragging = false;
+});
 
-    </li>
+// Mouse events
+bubble.addEventListener('mousedown', (e) => {
+  const rect = bubble.getBoundingClientRect();
+  
+  offsetX = e.clientX - rect.left;
+  offsetY = e.clientY - rect.top;
+  isDragging = true;
+  
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+});
 
-    <li style="--i: 7; --clr: #01bdab;">
+function onMouseMove(e) {
+  if (!isDragging) return;
 
-      <a href="#"><i class="fa-solid fa-camera"></i></a>
+  const x = e.clientX - offsetX;
+  const y = e.clientY - offsetY;
 
-    </li>
+  bubble.style.left = `${x}px`;
+  bubble.style.top = `${y}px`;
+}
 
-  </ul>
+function onMouseUp() {
+  isDragging = false;
+  document.removeEventListener('mousemove', onMouseMove);
+  document.removeEventListener('mouseup', onMouseUp);
+}
 
-  <script>
 
-    let menuToggle = document.querySelector('.menuToggle');
-
-    let menu = document.querySelector('.menu');
-
-    menuToggle.onclick = function () {
-
-      menu.classList.toggle('active');
-    }
-  </script>
-
+</script>
 </body>
-
 </html>
